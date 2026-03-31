@@ -1,0 +1,348 @@
+import type { KPICard, ServiceProduct, ActivityEvent } from "@/types";
+
+export const kpiCards: KPICard[] = [
+  {
+    id: "k1",
+    label: "Monthly Tickets",
+    value: "12,847",
+    target: "11,000",
+    trend: "down",
+    trendGood: false,
+    delta: "-8.2%",
+  },
+  {
+    id: "k2",
+    label: "Automation Rate",
+    value: "68%",
+    target: "75%",
+    trend: "up",
+    trendGood: true,
+    delta: "+4.1%",
+  },
+  {
+    id: "k3",
+    label: "Avg Cost / Ticket",
+    value: "$14.20",
+    target: "$12.00",
+    trend: "down",
+    trendGood: true,
+    delta: "-6.3%",
+  },
+  {
+    id: "k4",
+    label: "First-Time Resolution",
+    value: "81%",
+    target: "85%",
+    trend: "up",
+    trendGood: true,
+    delta: "+2.8%",
+  },
+];
+
+export const services: ServiceProduct[] = [
+  {
+    id: "svc1",
+    name: "Benefits Administration",
+    emoji: "🏥",
+    owner: "Sarah Chen",
+    ownerTitle: "Benefits Lead",
+    status: "at-risk",
+    automationPct: 54,
+    volumePerMonth: 2840,
+    costPerTicket: 18.5,
+    ftrPct: 76,
+    riskProfile: "High",
+    tierRange: "Starter–Pro",
+    description: "Health, dental, vision enrollment and changes",
+  },
+  {
+    id: "svc2",
+    name: "Payroll Support",
+    emoji: "💰",
+    owner: "Marcus Williams",
+    ownerTitle: "Payroll Manager",
+    status: "healthy",
+    automationPct: 82,
+    volumePerMonth: 1920,
+    costPerTicket: 9.4,
+    ftrPct: 91,
+    riskProfile: "Low",
+    tierRange: "Pro–Enterprise",
+    description: "Pay corrections, deductions, and reporting queries",
+  },
+  {
+    id: "svc3",
+    name: "Employee Onboarding",
+    emoji: "🚀",
+    owner: "Priya Patel",
+    ownerTitle: "HR Operations",
+    status: "critical",
+    automationPct: 31,
+    volumePerMonth: 3410,
+    costPerTicket: 24.1,
+    ftrPct: 58,
+    riskProfile: "Critical",
+    tierRange: "Free–Enterprise",
+    description: "New hire setup, provisioning, and orientation",
+  },
+  {
+    id: "svc4",
+    name: "IT Access & Provisioning",
+    emoji: "🔐",
+    owner: "James Torres",
+    ownerTitle: "IT-HR Liaison",
+    status: "healthy",
+    automationPct: 77,
+    volumePerMonth: 2150,
+    costPerTicket: 11.2,
+    ftrPct: 87,
+    riskProfile: "Medium",
+    tierRange: "Starter–Enterprise",
+    description: "System access, SSO setup, device provisioning",
+  },
+  {
+    id: "svc5",
+    name: "Leave Management",
+    emoji: "🌴",
+    owner: "Aisha Johnson",
+    ownerTitle: "People Ops Lead",
+    status: "at-risk",
+    automationPct: 62,
+    volumePerMonth: 1780,
+    costPerTicket: 13.7,
+    ftrPct: 79,
+    riskProfile: "Medium",
+    tierRange: "Free–Pro",
+    description: "PTO, FMLA, sick leave and absence tracking",
+  },
+  {
+    id: "svc6",
+    name: "Performance Management",
+    emoji: "📊",
+    owner: "Daniel Kim",
+    ownerTitle: "Talent Manager",
+    status: "healthy",
+    automationPct: 71,
+    volumePerMonth: 747,
+    costPerTicket: 16.8,
+    ftrPct: 84,
+    riskProfile: "Low",
+    tierRange: "Pro–Enterprise",
+    description: "Review cycles, goal setting, feedback workflows",
+  },
+];
+
+export const activityEvents: ActivityEvent[] = [
+  {
+    id: "evt1",
+    type: "breach",
+    message: "SLA breach detected — Benefits ticket #8821 exceeded 48hr threshold",
+    service: "Benefits Administration",
+    time: "2 min ago",
+    severity: "high",
+  },
+  {
+    id: "evt2",
+    type: "escalation",
+    message: "Onboarding queue depth at 94% capacity — auto-escalation triggered",
+    service: "Employee Onboarding",
+    time: "7 min ago",
+    severity: "high",
+  },
+  {
+    id: "evt3",
+    type: "automation",
+    message: "147 payroll variance checks processed automatically without human review",
+    service: "Payroll Support",
+    time: "18 min ago",
+    severity: "info",
+  },
+  {
+    id: "evt4",
+    type: "resolution",
+    message: "IT access batch provisioning completed — 34 new hires unblocked",
+    service: "IT Access & Provisioning",
+    time: "31 min ago",
+    severity: "low",
+  },
+  {
+    id: "evt5",
+    type: "info",
+    message: "Leave balance sync completed across HRIS for Q1 2026 period",
+    service: "Leave Management",
+    time: "45 min ago",
+    severity: "info",
+  },
+  {
+    id: "evt6",
+    type: "escalation",
+    message: "Benefits enrollment error rate elevated at 12.4% — investigation opened",
+    service: "Benefits Administration",
+    time: "1 hr ago",
+    severity: "medium",
+  },
+  {
+    id: "evt7",
+    type: "automation",
+    message: "Performance review reminder campaign dispatched to 1,240 managers",
+    service: "Performance Management",
+    time: "2 hrs ago",
+    severity: "info",
+  },
+  {
+    id: "evt8",
+    type: "resolution",
+    message: "Onboarding playbook updated — GDPR data handling step revised",
+    service: "Employee Onboarding",
+    time: "3 hrs ago",
+    severity: "low",
+  },
+];
+
+export interface AutomationTrendPoint {
+  month: string;
+  automationPct: number;
+  targetPct: number;
+  costPerTicket: number;
+}
+
+export const automationTrend: AutomationTrendPoint[] = [
+  { month: "Sep", automationPct: 51, targetPct: 60, costPerTicket: 19.4 },
+  { month: "Oct", automationPct: 55, targetPct: 62, costPerTicket: 18.1 },
+  { month: "Nov", automationPct: 59, targetPct: 64, costPerTicket: 17.2 },
+  { month: "Dec", automationPct: 62, targetPct: 66, costPerTicket: 16.3 },
+  { month: "Jan", automationPct: 65, targetPct: 68, costPerTicket: 15.5 },
+  { month: "Feb", automationPct: 67, targetPct: 70, costPerTicket: 14.8 },
+  { month: "Mar", automationPct: 68, targetPct: 75, costPerTicket: 14.2 },
+];
+
+export interface PipelineIdea {
+  id: string;
+  title: string;
+  tagline: string;
+  icon: string;
+  description: string;
+  capabilities: string[];
+  impact: { label: string; value: string }[];
+  integrations: string[];
+  status: "Proposed" | "In Design" | "Ready to Build";
+  accentColor: string;
+}
+
+export const pipelineIdeas: PipelineIdea[] = [
+  {
+    id: "pipe1",
+    title: "Predictive Burnout Detector",
+    tagline: "Stop SLA fires before they start",
+    icon: "🔥",
+    description:
+      "Uses ticket volume trends + resolver workload patterns to predict when HR service teams approach capacity limits, triggering automatic workload rebalancing and staffing alerts before SLAs are at risk.",
+    capabilities: [
+      "Real-time volume spike detection",
+      "Resolver workload heatmaps",
+      "AI-predicted burnout windows (14-day horizon)",
+      "Auto-redistributes ticket queues",
+      "Manager alert system with severity levels",
+    ],
+    impact: [
+      { label: "SLA Breach Reduction", value: "↓ 34%" },
+      { label: "Resolver Burnout Cases", value: "↓ 61%" },
+      { label: "Escalation Rate", value: "↓ 28%" },
+    ],
+    integrations: ["Activity Feed", "Service Health Monitor", "Roadmap Planner"],
+    status: "In Design",
+    accentColor: "#F59E0B",
+  },
+  {
+    id: "pipe2",
+    title: "Smart Auto-Triage Engine",
+    tagline: "Route right, resolve fast",
+    icon: "⚡",
+    description:
+      "NLP-powered pipeline classifies incoming HR tickets by urgency, sentiment, category, and complexity in under 200ms, auto-routing to the right human resolver or deflecting to the knowledge base.",
+    capabilities: [
+      "NLP intent classification (47 HR categories)",
+      "Sentiment + urgency scoring",
+      "Confidence-based human-in-the-loop routing",
+      "Knowledge base deflection with match scoring",
+      "Continuous model fine-tuning from resolutions",
+    ],
+    impact: [
+      { label: "Ticket Deflection Rate", value: "↑ 42%" },
+      { label: "Avg Handle Time", value: "↓ 51%" },
+      { label: "Misrouting", value: "↓ 89%" },
+    ],
+    integrations: ["Knowledge Base", "Activity Feed", "Service Health Monitor"],
+    status: "Ready to Build",
+    accentColor: "#06B6D4",
+  },
+  {
+    id: "pipe3",
+    title: "Compliance Watchdog",
+    tagline: "Always audit-ready, zero surprises",
+    icon: "🛡️",
+    description:
+      "Real-time pipeline that scans every HR service interaction for GDPR, SOX, HIPAA, and EEOC compliance signals, auto-flagging violations, generating audit trails, and triggering escalation workflows for critical breaches.",
+    capabilities: [
+      "Multi-framework compliance rules engine (GDPR/SOX/HIPAA/EEOC)",
+      "PII detection and masking in ticket content",
+      "Automated audit trail generation",
+      "Breach severity classification + escalation",
+      "Quarterly compliance scoring dashboard",
+    ],
+    impact: [
+      { label: "Audit Prep Time", value: "↓ 73%" },
+      { label: "Compliance Score", value: "↑ 94%" },
+      { label: "Breach Detection Time", value: "↓ 6 hrs → 4 min" },
+    ],
+    integrations: ["Activity Feed", "Assessment Engine", "Knowledge Base"],
+    status: "Proposed",
+    accentColor: "#EF4444",
+  },
+  {
+    id: "pipe4",
+    title: "Cost Leakage Detector",
+    tagline: "Find every dollar left on the table",
+    icon: "💸",
+    description:
+      "Continuously cross-references every service's cost-per-ticket against industry benchmarks, automation opportunity models, and historical trends to surface exactly where manual processes are bleeding budget — with one-click remediation plans.",
+    capabilities: [
+      "Industry benchmark database (500+ HR orgs)",
+      "Automation ROI calculator per service",
+      "Cost attribution waterfall analysis",
+      '"Fix It" playbook recommendations with expected savings',
+      "Month-over-month cost regression detection",
+    ],
+    impact: [
+      { label: "Identified Savings", value: "$2.4M / yr avg" },
+      { label: "Automation Adoption", value: "↑ 31%" },
+      { label: "Cost Per Ticket", value: "↓ 29%" },
+    ],
+    integrations: ["Service Products", "Knowledge Base", "Roadmap Planner"],
+    status: "Ready to Build",
+    accentColor: "#A855F7",
+  },
+  {
+    id: "pipe5",
+    title: "Maturity Sprint Planner",
+    tagline: "Turn scores into sprints into results",
+    icon: "🎯",
+    description:
+      "AI-driven pipeline that analyzes current maturity assessment scores layer-by-layer, generates tailored 30/60/90-day improvement sprints, assigns recommended playbooks from the knowledge base, and tracks sprint completion against projected maturity gains.",
+    capabilities: [
+      "Gap analysis across all 5 maturity dimensions",
+      "Auto-generated sprint backlogs with effort estimates",
+      "Playbook-to-gap matching engine",
+      "Sprint velocity tracking vs. maturity projection",
+      "Executive summary reports with ROI projections",
+    ],
+    impact: [
+      { label: "Maturity Level Advancement", value: "2x faster" },
+      { label: "Playbook Adoption", value: "↑ 78%" },
+      { label: "Improvement Predictability", value: "↑ 91%" },
+    ],
+    integrations: ["Assessment Engine", "Knowledge Base", "Roadmap Planner"],
+    status: "In Design",
+    accentColor: "#22C55E",
+  },
+];

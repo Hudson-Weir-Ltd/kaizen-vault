@@ -1,0 +1,36 @@
+:root {
+  --bg: #08101F;
+  --card: #0D1B2E;
+  --card-border: #1A2F4E;
+  --cyan: #06B6D4;
+  --purple: #A855F7;
+  --green: #22C55E;
+  --amber: #F59E0B;
+  --red: #EF4444;
+  --sidebar-w: 240px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: #F1F5F9;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--card-border);
+  border-radius: 3px;
+}
