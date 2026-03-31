@@ -1,3 +1,5 @@
+"use client";
+
 import type { ServiceProduct } from "@/types";
 import { services } from "@/data/mock";
 import { getStatusColor, getStatusBg } from "@/lib/utils";
