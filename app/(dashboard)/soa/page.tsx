@@ -1,11 +1,16 @@
-import PlaceholderPage from "@/components/PlaceholderPage";
+import PageHeader from "@/components/PageHeader";
+import CasePicker from "@/components/soa/CasePicker";
 
-export default function StatementOfAffairsPage() {
+export default function StatementOfAffairsIndex() {
   return (
-    <PlaceholderPage
-      title="Statement of Affairs"
-      description="Bidirectional bridge to Hudson One. Pick a case to view its assets, liabilities and charges; the SoA preview renders live from those tables using the same IA1986 s.107/175/176A waterfall as Hudson One."
-      scheduledFor="Stage C — once Hudson One bridge credentials land"
-    />
+    <>
+      <PageHeader
+        title="Statement of Affairs"
+        subtitle="Pick a case to view its assets, liabilities and charges, with a live SoA preview."
+      />
+      <div style={{ padding: "28px 32px" }}>
+        <CasePicker />
+      </div>
+    </>
   );
 }

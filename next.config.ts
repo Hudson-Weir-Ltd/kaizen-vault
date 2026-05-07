@@ -11,6 +11,9 @@ const withBundleAnalyzer = bundleAnalyzer({
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // Pin the workspace root so Next 15.5+ doesn't pick up stray lockfiles
+  // higher in the tree on dev machines that have side projects.
+  outputFileTracingRoot: __dirname,
   images: {
     formats: ["image/avif", "image/webp"],
     // Stage C-1.1: tighten remotePatterns to the Kaizen Supabase storage host
