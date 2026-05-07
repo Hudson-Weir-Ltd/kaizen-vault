@@ -1,19 +1,13 @@
 import { TrendingUp, TrendingDown } from "lucide-react";
 import type { KPICard } from "@/types";
 import { kpiCards } from "@/data/mock";
-
-function parseProgress(value: string, target: string): number | null {
-  const cleanValue = parseFloat(value.replace(/[^0-9.]/g, ""));
-  const cleanTarget = parseFloat(target.replace(/[^0-9.]/g, ""));
-  if (isNaN(cleanValue) || isNaN(cleanTarget) || cleanTarget === 0) return null;
-  return Math.min((cleanValue / cleanTarget) * 100, 120);
-}
+import { parseProgress } from "@/lib/utils";
 
 function KPICardItem({ card }: { card: KPICard }) {
   const isGood = card.trendGood;
   const trendColor = isGood ? "var(--green)" : "var(--red)";
   const trendBg = isGood ? "rgba(34,197,94,0.1)" : "rgba(239,68,68,0.1)";
-  const progress = parseProgress(card.value, card.target);
+  const progress = parseProgress(card.value, card.target, card.direction);
 
   return (
     <div
