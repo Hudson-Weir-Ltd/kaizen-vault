@@ -1,5 +1,5 @@
 import { CheckCircle2 } from "lucide-react";
-import type { PipelineIdea } from "@/data/mock";
+import type { PipelineIdea } from "@/types";
 import { pipelineIdeas } from "@/data/mock";
 
 const statusConfig: Record<

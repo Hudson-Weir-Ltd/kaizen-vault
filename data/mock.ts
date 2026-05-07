@@ -1,4 +1,10 @@
-import type { KPICard, ServiceProduct, ActivityEvent } from "@/types";
+import type {
+  KPICard,
+  ServiceProduct,
+  ActivityEvent,
+  AutomationTrendPoint,
+  PipelineIdea,
+} from "@/types";
 
 export const kpiCards: KPICard[] = [
   {
@@ -199,13 +205,6 @@ export const activityEvents: ActivityEvent[] = [
   },
 ];
 
-export interface AutomationTrendPoint {
-  month: string;
-  automationPct: number;
-  targetPct: number;
-  costPerTicket: number;
-}
-
 export const automationTrend: AutomationTrendPoint[] = [
   { month: "Sep", automationPct: 51, targetPct: 60, costPerTicket: 19.4 },
   { month: "Oct", automationPct: 55, targetPct: 62, costPerTicket: 18.1 },
@@ -215,19 +214,6 @@ export const automationTrend: AutomationTrendPoint[] = [
   { month: "Feb", automationPct: 67, targetPct: 70, costPerTicket: 14.8 },
   { month: "Mar", automationPct: 68, targetPct: 75, costPerTicket: 14.2 },
 ];
-
-export interface PipelineIdea {
-  id: string;
-  title: string;
-  tagline: string;
-  icon: string;
-  description: string;
-  capabilities: string[];
-  impact: { label: string; value: string }[];
-  integrations: string[];
-  status: "Proposed" | "In Design" | "Ready to Build";
-  accentColor: string;
-}
 
 export const pipelineIdeas: PipelineIdea[] = [
   {
