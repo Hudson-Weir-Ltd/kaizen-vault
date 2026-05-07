@@ -15,6 +15,7 @@ export const kpiCards: KPICard[] = [
     trend: "down",
     trendGood: false,
     delta: "-8.2%",
+    direction: "lower_is_better",
   },
   {
     id: "k2",
@@ -24,6 +25,7 @@ export const kpiCards: KPICard[] = [
     trend: "up",
     trendGood: true,
     delta: "+4.1%",
+    direction: "higher_is_better",
   },
   {
     id: "k3",
@@ -33,6 +35,7 @@ export const kpiCards: KPICard[] = [
     trend: "down",
     trendGood: true,
     delta: "-6.3%",
+    direction: "lower_is_better",
   },
   {
     id: "k4",
@@ -42,6 +45,7 @@ export const kpiCards: KPICard[] = [
     trend: "up",
     trendGood: true,
     delta: "+2.8%",
+    direction: "higher_is_better",
   },
 ];
 

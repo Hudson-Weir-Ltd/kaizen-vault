@@ -5,13 +5,7 @@ import ActivityFeed from "@/components/ActivityFeed";
 import AutomationTrendChart from "@/components/AutomationTrendChart";
 import MaturityScoreCard from "@/components/MaturityScoreCard";
 import PipelineIdeas from "@/components/PipelineIdeas";
-
-const FORMATTED_DATE = new Date("2026-03-31").toLocaleDateString("en-US", {
-  weekday: "long",
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-});
+import TodayDate from "@/components/TodayDate";
 
 export default function DashboardPage() {
   return (
@@ -46,7 +40,9 @@ export default function DashboardPage() {
             <h1 style={{ fontSize: "20px", fontWeight: 700, color: "#F1F5F9", lineHeight: 1 }}>
               Command Center
             </h1>
-            <p style={{ fontSize: "12px", color: "#64748B", marginTop: "4px" }}>{FORMATTED_DATE}</p>
+            <p style={{ fontSize: "12px", color: "#64748B", marginTop: "4px" }}>
+              <TodayDate />
+            </p>
           </div>
 
           <div
