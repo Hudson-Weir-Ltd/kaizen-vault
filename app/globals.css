@@ -19,7 +19,7 @@
 body {
   background: var(--bg);
   color: #F1F5F9;
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: var(--font-inter), system-ui, sans-serif;
 }
 
 ::-webkit-scrollbar {
