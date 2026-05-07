@@ -1,30 +1,36 @@
 "use client";
 
-import { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   Server,
   GitBranch,
   Activity,
   Map,
+  FileText,
 } from "lucide-react";
+import type { ReactNode } from "react";
 
 interface NavItem {
-  id: string;
   label: string;
-  icon: React.ReactNode;
+  href: string;
+  icon: ReactNode;
 }
 
 const navItems: NavItem[] = [
-  { id: "dashboard", label: "Dashboard", icon: <LayoutDashboard size={18} /> },
-  { id: "services", label: "Services", icon: <Server size={18} /> },
-  { id: "pipeline", label: "Pipeline Ideas", icon: <GitBranch size={18} /> },
-  { id: "activity", label: "Activity", icon: <Activity size={18} /> },
-  { id: "roadmap", label: "Roadmap", icon: <Map size={18} /> },
+  { label: "Dashboard", href: "/", icon: <LayoutDashboard size={18} /> },
+  { label: "Services", href: "/services", icon: <Server size={18} /> },
+  { label: "Pipeline Ideas", href: "/pipeline", icon: <GitBranch size={18} /> },
+  { label: "Activity", href: "/activity", icon: <Activity size={18} /> },
+  { label: "Roadmap", href: "/roadmap", icon: <Map size={18} /> },
+  // SoA tab — last position per HH 2026-05-07. Stage C will replace the
+  // placeholder page with the case picker + bidirectional sync to Hudson One.
+  { label: "Statement of Affairs", href: "/soa", icon: <FileText size={18} /> },
 ];
 
 export default function Sidebar() {
-  const [active, setActive] = useState("dashboard");
+  const pathname = usePathname();
 
   return (
     <aside
@@ -88,13 +94,14 @@ export default function Sidebar() {
       </div>
 
       {/* Nav */}
-      <nav style={{ padding: "12px 12px", flex: 1 }}>
+      <nav style={{ padding: "12px 12px", flex: 1 }} aria-label="Primary">
         {navItems.map((item) => {
-          const isActive = active === item.id;
+          const isActive = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
           return (
-            <button
-              key={item.id}
-              onClick={() => setActive(item.id)}
+            <Link
+              key={item.href}
+              href={item.href}
+              aria-current={isActive ? "page" : undefined}
               style={{
                 width: "100%",
                 display: "flex",
@@ -102,23 +109,21 @@ export default function Sidebar() {
                 gap: "10px",
                 padding: "9px 12px",
                 borderRadius: "8px",
-                border: "none",
                 background: isActive ? "rgba(6, 182, 212, 0.08)" : "transparent",
                 color: isActive ? "var(--cyan)" : "#94A3B8",
                 fontSize: "13.5px",
                 fontWeight: isActive ? 600 : 400,
-                cursor: "pointer",
+                textDecoration: "none",
                 marginBottom: "2px",
-                textAlign: "left",
                 borderLeft: isActive ? "2px solid var(--cyan)" : "2px solid transparent",
-                transition: "all 0.15s ease",
+                transition: "background 0.15s ease, color 0.15s ease",
               }}
             >
               <span style={{ color: isActive ? "var(--cyan)" : "#64748B", flexShrink: 0 }}>
                 {item.icon}
               </span>
               {item.label}
-            </button>
+            </Link>
           );
         })}
       </nav>
@@ -131,29 +136,13 @@ export default function Sidebar() {
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "6px" }}>
-          <div
-            style={{
-              width: "7px",
-              height: "7px",
-              borderRadius: "50%",
-              background: "var(--green)",
-              boxShadow: "0 0 6px var(--green)",
-              animation: "pulse 2s infinite",
-            }}
-          />
+          <div className="kv-pulse-dot" aria-hidden />
           <span style={{ fontSize: "12px", color: "var(--green)", fontWeight: 500 }}>
             System Online
           </span>
         </div>
         <span style={{ fontSize: "11px", color: "#475569" }}>v0.1.0</span>
       </div>
-
-      <style>{`
-        @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.4; }
-        }
-      `}</style>
     </aside>
   );
 }

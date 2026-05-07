@@ -34,3 +34,69 @@ body {
   background: var(--card-border);
   border-radius: 3px;
 }
+
+/* ========================================================
+   ServiceHealthGrid hover states (replaces JS onMouseEnter
+   so the component can stay a server component).
+   ======================================================== */
+.kv-service-card {
+  cursor: default;
+}
+.kv-service-card[data-status="healthy"]:hover {
+  box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.25), 0 4px 24px rgba(0, 0, 0, 0.3);
+  border-color: rgba(34, 197, 94, 0.38);
+}
+.kv-service-card[data-status="at-risk"]:hover {
+  box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.25), 0 4px 24px rgba(0, 0, 0, 0.3);
+  border-color: rgba(245, 158, 11, 0.38);
+}
+.kv-service-card[data-status="critical"]:hover {
+  box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.25), 0 4px 24px rgba(0, 0, 0, 0.3);
+  border-color: rgba(239, 68, 68, 0.38);
+}
+
+/* Sidebar online-pulse dot (extracted from inline <style> block). */
+.kv-pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 6px var(--green);
+  animation: kv-pulse 2s infinite;
+}
+@keyframes kv-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+/* ActivityFeed live-status ping (extracted from inline <style> block). */
+.kv-ping-outer {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--green);
+  opacity: 0.4;
+  animation: kv-ping 1.5s ease-in-out infinite;
+}
+.kv-ping-inner {
+  position: absolute;
+  inset: 1px;
+  border-radius: 50%;
+  background: var(--green);
+}
+@keyframes kv-ping {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}

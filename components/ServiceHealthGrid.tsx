@@ -1,5 +1,3 @@
-"use client";
-
 import type { ServiceProduct } from "@/types";
 import { services } from "@/data/mock";
 import { getStatusColor, getStatusBg } from "@/lib/utils";
@@ -60,6 +58,8 @@ function ServiceCard({ svc }: { svc: ServiceProduct }) {
 
   return (
     <div
+      className="kv-service-card"
+      data-status={svc.status}
       style={{
         background: "var(--card)",
         border: "1px solid var(--card-border)",
@@ -70,20 +70,12 @@ function ServiceCard({ svc }: { svc: ServiceProduct }) {
         gap: "14px",
         position: "relative",
         overflow: "hidden",
-        cursor: "default",
         transition: "box-shadow 0.2s ease, border-color 0.2s ease",
-      }}
-      onMouseEnter={(e) => {
-        (e.currentTarget as HTMLDivElement).style.boxShadow = `0 0 0 1px ${statusColor}40, 0 4px 24px rgba(0,0,0,0.3)`;
-        (e.currentTarget as HTMLDivElement).style.borderColor = `${statusColor}60`;
-      }}
-      onMouseLeave={(e) => {
-        (e.currentTarget as HTMLDivElement).style.boxShadow = "none";
-        (e.currentTarget as HTMLDivElement).style.borderColor = "var(--card-border)";
       }}
     >
       {/* Colored bottom border accent */}
       <div
+        aria-hidden
         style={{
           position: "absolute",
           bottom: 0,
@@ -163,6 +155,11 @@ function ServiceCard({ svc }: { svc: ServiceProduct }) {
   );
 }
 
+/**
+ * Service Health Monitor grid. Server component — hover styling is in
+ * globals.css (`.kv-service-card[data-status="..."]:hover`) so we don't
+ * need to ship event handlers to the client.
+ */
 export default function ServiceHealthGrid() {
   return (
     <div>

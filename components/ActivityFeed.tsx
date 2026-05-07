@@ -1,5 +1,3 @@
-"use client";
-
 import { AlertTriangle, CheckCircle, Zap, Shield, Info } from "lucide-react";
 import type { ActivityEvent } from "@/types";
 import { activityEvents } from "@/data/mock";
@@ -124,25 +122,9 @@ export default function ActivityFeed() {
       >
         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
           <h2 style={{ fontSize: "15px", fontWeight: 600, color: "#F1F5F9" }}>Live Activity</h2>
-          <div style={{ position: "relative", width: "8px", height: "8px" }}>
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                borderRadius: "50%",
-                background: "var(--green)",
-                opacity: 0.4,
-                animation: "pingAnim 1.5s ease-in-out infinite",
-              }}
-            />
-            <div
-              style={{
-                position: "absolute",
-                inset: "1px",
-                borderRadius: "50%",
-                background: "var(--green)",
-              }}
-            />
+          <div style={{ position: "relative", width: "8px", height: "8px" }} aria-hidden>
+            <div className="kv-ping-outer" />
+            <div className="kv-ping-inner" />
           </div>
         </div>
         <span style={{ fontSize: "11px", color: "#475569" }}>{activityEvents.length} events</span>
@@ -161,13 +143,6 @@ export default function ActivityFeed() {
           <EventRow key={event.id} event={event} />
         ))}
       </div>
-
-      <style>{`
-        @keyframes pingAnim {
-          0%, 100% { transform: scale(1); opacity: 0.4; }
-          50% { transform: scale(1.8); opacity: 0; }
-        }
-      `}</style>
     </div>
   );
 }

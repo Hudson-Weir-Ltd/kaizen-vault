@@ -1,24 +1,71 @@
 import { getMaturityLevel, getMaturityColor } from "@/lib/utils";
 import { services } from "@/data/mock";
+import type { ServiceProduct } from "@/types";
 
-function computeOverallScore(): number {
-  const totalAuto = services.reduce((acc, s) => acc + s.automationPct, 0);
-  const avgAuto = totalAuto / services.length;
-  const totalFtr = services.reduce((acc, s) => acc + s.ftrPct, 0);
-  const avgFtr = totalFtr / services.length;
-  return Math.round((avgAuto * 0.5 + avgFtr * 0.5));
+/**
+ * Compute the five maturity dimensions from `services` data.
+ *
+ * - Automation: average of services[].automationPct.
+ * - Compliance: average of services[].ftrPct (FTR is the closest signal we have).
+ * - Experience: status-weighted (healthy 100 / at-risk 60 / critical 30).
+ * - Governance: risk-weighted (Low 100 / Medium 70 / High 40 / Critical 10).
+ * - Analytics: weighted average of automation + FTR (50/50). When real
+ *   analytics signals land in Stage C we'll replace this with usage data.
+ *
+ * Returning all five from one function so the component stays a server
+ * component — no hooks, no client JS.
+ */
+function computeDimensions(svcs: ServiceProduct[]): { label: string; pct: number }[] {
+  if (svcs.length === 0) {
+    return [
+      { label: "Governance", pct: 0 },
+      { label: "Automation", pct: 0 },
+      { label: "Analytics", pct: 0 },
+      { label: "Compliance", pct: 0 },
+      { label: "Experience", pct: 0 },
+    ];
+  }
+
+  const avg = (xs: number[]) =>
+    Math.round(xs.reduce((acc, x) => acc + x, 0) / xs.length);
+
+  const statusToPct: Record<ServiceProduct["status"], number> = {
+    healthy: 100,
+    "at-risk": 60,
+    critical: 30,
+  };
+  const riskToPct: Record<ServiceProduct["riskProfile"], number> = {
+    Low: 100,
+    Medium: 70,
+    High: 40,
+    Critical: 10,
+  };
+
+  const automation = avg(svcs.map((s) => s.automationPct));
+  const compliance = avg(svcs.map((s) => s.ftrPct));
+  const experience = avg(svcs.map((s) => statusToPct[s.status]));
+  const governance = avg(svcs.map((s) => riskToPct[s.riskProfile]));
+  const analytics = Math.round((automation + compliance) / 2);
+
+  return [
+    { label: "Governance", pct: governance },
+    { label: "Automation", pct: automation },
+    { label: "Analytics", pct: analytics },
+    { label: "Compliance", pct: compliance },
+    { label: "Experience", pct: experience },
+  ];
 }
 
-const dimensions = [
-  { label: "Governance", pct: 72 },
-  { label: "Automation", pct: 68 },
-  { label: "Analytics", pct: 55 },
-  { label: "Compliance", pct: 80 },
-  { label: "Experience", pct: 63 },
-];
+function computeOverallScore(dimensions: { pct: number }[]): number {
+  if (dimensions.length === 0) return 0;
+  return Math.round(
+    dimensions.reduce((acc, d) => acc + d.pct, 0) / dimensions.length
+  );
+}
 
 export default function MaturityScoreCard() {
-  const score = computeOverallScore();
+  const dimensions = computeDimensions(services);
+  const score = computeOverallScore(dimensions);
   const level = getMaturityLevel(score);
   const color = getMaturityColor(level);
 
@@ -48,7 +95,6 @@ export default function MaturityScoreCard() {
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
         <div style={{ position: "relative", width: "130px", height: "130px" }}>
           <svg width="130" height="130" style={{ transform: "rotate(-90deg)" }}>
-            {/* Track */}
             <circle
               cx="65"
               cy="65"
@@ -57,7 +103,6 @@ export default function MaturityScoreCard() {
               stroke="rgba(255,255,255,0.06)"
               strokeWidth="10"
             />
-            {/* Progress */}
             <circle
               cx="65"
               cy="65"
@@ -71,7 +116,6 @@ export default function MaturityScoreCard() {
               style={{ transition: "stroke-dashoffset 0.8s ease, stroke 0.3s ease" }}
             />
           </svg>
-          {/* Center label */}
           <div
             style={{
               position: "absolute",
